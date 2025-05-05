@@ -1,0 +1,129 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    text-align: center;
+}
+
+
+
+.invoice-form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    padding-right: 40px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.styles_titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    a {
+        text-decoration: none;
+        padding: 4px;
+        font-size: 18px;
+        color: white;
+        background-color: #007BFF;
+        border-radius: 5px;
+    }
+    img {
+        width: 25%;
+    }
+}
+
+.imgLogo{
+    max-width: 100%;
+    height: auto;
+    margin-left: 1rem;
+    width: 25%;
+}
+
+legend {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label, form input, form fieldset, form button, form textarea {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+form input[type="text"], form input[type="tel"], form input[type="date"], form input[type="number"], form textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form fieldset {
+    border: none;
+    padding: 0;
+}
+
+form .servicio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: bold;
+}
+
+form .servicio input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+}
+
+form .servicio input[type="text"], form .servicio input[type="number"] {
+    flex: 1;
+    margin-right: 10px;
+    min-width: 100px;
+}
+
+form .servicio label {
+    flex: 1;
+    min-width: 100px;
+}
+
+form button {
+    padding: 10px;
+    font-size: 18px;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Estilos Facturas */
+
+.facturas_inicio {
+    display: flex;  
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+    gap: 1rem;
+    button{
+        text-decoration: none;
+        padding: 4px;
+        font-size: 18px;
+        color: white;
+        background-color: #007BFF;
+        border-radius: 5px;
+    }
+}

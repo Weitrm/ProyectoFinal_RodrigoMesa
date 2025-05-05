@@ -1,25 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facturas Web Jorge Silva</title>
-    <!-- Javascript-->
-    <script defer src="JS/main.js"></script>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-
+    <title>Generador de Facturas</title>
+    <script defer src="./JS/main.js"></script>
+    <link rel="stylesheet" href="./CSS/styles.css">
 </head>
 <body>
-    <header>
-        <img class="img-fluid max-width: 25%" src="img/JS Aires Pando (Logotipo).png" alt="Logo de la empresa JS Aires Pando">
-        <h1>Facturas Web JSPando</h1>
-        <button>plegable</button>
-    </header>
+    <div class="invoice-form">
+        <div class="styles_titulo">
+            <img class="imgLogo" src="./img/jslogo.png" alt="logo">
+            <h1>Facturas</h1>
+            <a href="./facturas.html">Ver Facturas</a>
+        </div>
+        <form id="invoiceForm" method="post">
+            <label for="numeroFactura">Número de Factura:</label>
+            <input type="text" id="numeroFactura" name="numeroFactura" required>
 
-    <main>
+            <label for="nombreCliente">Nombre del Cliente:</label>
+            <input type="text" id="nombreCliente" name="nombreCliente" required>
 
-    </main>
+            <label for="numeroTelefono">Teléfono:</label>
+            <input type="tel" id="numeroTelefono" name="numeroTelefono" required>
+
+            <label for="fechaFactura">Fecha de Factura:</label>
+            <input type="date" id="fechaFactura" name="fechaFactura" required>
+
+            <label for="incluyeRut">Incluir RUT:</label>
+            <input type="checkbox" id="incluyeRut" name="incluyeRut">
+            <label for="rut">RUT:</label>
+            <input type="text" id="rut" name="rut" value="110374690018" required>
+
+
+
+
+            <fieldset>
+                <legend>Servicios Realizados</legend>
+
+                <div class="servicio">
+                    <input type="checkbox" id="equipo" name="servicios" value="Equipo">
+                    <label for="equipo">Equipo</label>
+                    <input type="text" placeholder="Especificar equipo" name="equipoDetail">
+                    <input type="number" placeholder="Precio" name="equipoPrice" step="0.01">
+                </div>
+
+                <div class="servicio">
+                    <input type="checkbox" id="instalacionEquipo" name="servicios" value="Instalacion de equipo">
+                    <label for="instalacionEquipo">Instalación de equipo</label>
+                    <input type="text" placeholder="Especificar tamaño" name="instalacionDetail">
+                    <input type="number" placeholder="Precio" name="instalacionPrice" step="0.01">
+                </div>
+
+                <div class="servicio">
+                    <input type="checkbox" id="instalacionElectrica" name="servicios" value="Instalacion electrica">
+                    <label for="instalacionElectrica">Instalación eléctrica</label>
+                    <input type="number" placeholder="Precio" name="electricaPrice" step="0.01">
+                </div>
+
+                <div class="servicio">
+                    <input type="checkbox" id="mensulas" name="servicios" value="Mensulas">
+                    <label for="mensulas">Mensulas</label>
+                    <input type="number" placeholder="Precio" name="mensulasPrice" step="0.01">
+                </div>
+
+                <div class="servicio">
+                    <input type="checkbox" id="preinstalacion" name="servicios" value="Preinstalacion">
+                    <label for="preinstalacion">Preinstalación</label>
+                    <input type="number" placeholder="Precio" name="preinstalacionPrice" step="0.01">
+                </div>
+
+                <div class="servicio">
+                    <input type="checkbox" id="cargaRefrigerante" name="servicios" value="Carga de refrigerante">
+                    <label for="cargaRefrigerante">Carga de refrigerante</label>
+                    <input type="number" placeholder="Precio" name="refrigerantePrice" step="0.01">
+                </div>
+
+                <div class="servicio">
+                    <input type="checkbox" id="mantenimiento" name="servicios" value="Mantenimiento">
+                    <label for="mantenimiento">Mantenimiento</label>
+                    <input type="number" placeholder="Precio" name="mantenimientoPrice" step="0.01">
+                </div>
+
+                <div class="servicio">
+                    <input type="checkbox" id="reparacion" name="servicios" value="Reparacion">
+                    <label for="reparacion">Reparación</label>
+                    <input type="number" placeholder="Precio" name="reparacionPrice" step="0.01">
+                </div>
+            </fieldset>
+
+            <label for="incluyeIva">Incluir IVA (22%):</label>
+            <input type="checkbox" id="incluyeIva" name="incluyeIva">
+            
+            <div>
+                <label for="tipoPago">Tipo de Pago:</label>
+                <select id="tipoPago" name="tipoPago" required>
+                    <option value="contado">Contado</option>
+                    <option value="cuota">Cuotas</option>
+                </select>
+            </div>
+            <div id="cuotasDiv" style="display: none;">
+                <label for="cuotas">Cantidad de Cuotas:</label>
+                <input type="number" id="cuotas" name="cuotas" min="1" max="12" value="1">
+            </div>
+
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="4" placeholder="Describe el trabajo realizado..."></textarea>
+            
+            <input type="hidden" id="detallesServicio" name="detallesServicio">
+            <button type="submit">Generar Factura</button>
+        </form>
+    </div>
 
 </body>
 </html>

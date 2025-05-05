@@ -16,12 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Teléfono:</strong> ${factura.numeroTelefono}</p>
                 <p><strong>Fecha:</strong> ${factura.fechaFactura}</p>
                 <p><strong>Total:</strong> $${factura.total}</p>
-                ${factura.tipoPago === "cuotas" ? `
-                    <p><strong>Cuotas:</strong> ${factura.cuotas}</p>
-                    <p><strong>Cuotas pagadas:</strong> <span id="cuotasPagadas-${index}">${factura.cuotasPagadas}</span>/${factura.cuotas}</p>
-                    <input type="number" min="1" max="${factura.cuotas}" value="${factura.cuotasPagadas}" id="inputCuotas-${index}" style="width: 60px;">
-                    <button onclick="actualizarCuotas(${index})">Actualizar Cuotas</button>
-                ` : ""}
                 <button onclick="verFactura(${index})">Ver factura</button>
                 <button onclick="eliminarFactura(${index})" style="margin-left: 10px; color: red;">Eliminar</button>
                 <hr>

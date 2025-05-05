@@ -68,7 +68,6 @@ function mostrarFactura(factura) {
                 </tbody>
             </table>
             <p><strong>Total:</strong> $${factura.total}</p>
-            ${factura.tipoPago === "cuotas" ? `<p><strong>Cuotas:</strong> ${factura.cuotas} (Cuota 1/${factura.cuotas})</p>` : ""}
             <p><strong>Descripción:</strong> ${factura.descripcion}</p>
             <div class="footer">
                 <p>Gracias por su compra</p>

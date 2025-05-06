@@ -16,8 +16,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Teléfono:</strong> ${factura.numeroTelefono}</p>
                 <p><strong>Fecha:</strong> ${factura.fechaFactura}</p>
                 <p><strong>Total:</strong> $${factura.total}</p>
+                ${factura.cuotas > 1 ? `<p><strong>Cuota actual:</strong> ${factura.cuotaActual || 1}/${factura.cuotas}</p>` : ""}
                 <button onclick="verFactura(${index})">Ver factura</button>
                 <button onclick="eliminarFactura(${index})" style="margin-left: 10px; color: red;">Eliminar</button>
+                ${factura.cuotas > 1 ? `
+                    <div style="margin-top:10px;">
+                        <button onclick="mostrarFormularioCuota(${index})">Modificar cuotas pagadas</button>
+                        <div id="formCuota-${index}" style="display: none; margin-top: 5px;">
+                            <label>Cuota pagada:</label>
+                            <input type="number" id="nuevaCuota-${index}" min="1" max="${factura.cuotas}" value="${factura.cuotaActual || 1}">
+                            <button onclick="actualizarCuota(${index})">Guardar</button>
+                        </div>
+                    </div>
+                ` : ""}
                 <hr>
             `;
     
@@ -41,21 +52,21 @@ function verFactura(index) {
     mostrarFactura(factura);
 }
 
+
 function mostrarFactura(factura) {
+    const totalPorCuota = (parseFloat(factura.total) / factura.cuotas).toFixed(2);
     const facturaHTML = `
         <html>
         <head>
             <title>Factura ${factura.numeroFactura}</title>
-            <style>
-                body { font-family: Arial; padding: 20px; }
-                h1 { text-align: center; }
-                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-                .footer { margin-top: 40px; text-align: center; }
-            </style>
+            <link rel="stylesheet" href="./CSS/facturas_styles.css">
         </head>
         <body>
-            <h1>Factura</h1>
+            <div class="header">
+                <img src="./img/jslogo.png" alt="Logo" class="logo">
+                <h1>Factura</h1>
+                <a href="./facturas.html">Volver al Historial</a>
+            </div>
             <p><strong>Número:</strong> ${factura.numeroFactura}</p>
             <p><strong>Cliente:</strong> ${factura.nombreCliente}</p>
             <p><strong>Teléfono:</strong> ${factura.numeroTelefono}</p>
@@ -67,10 +78,12 @@ function mostrarFactura(factura) {
                     ${factura.servicios.map(s => `<tr><td>${s.nombre}</td><td>${s.detalle}</td><td>$${s.precio.toFixed(2)}</td></tr>`).join("")}
                 </tbody>
             </table>
-            <p><strong>Total:</strong> $${factura.total}</p>
+            ${factura.cuotas > 1 ? `<p ><strong>Cuotas:</strong> ${factura.cuotas} de $${totalPorCuota}</p>` : ""}
+            ${factura.incluyeIva ? `<p><strong>IVA:</strong> $${factura.iva}</p>` : ""}
+            <p class="total"><strong>Total:</strong> $${factura.total}</p>
             <p><strong>Descripción:</strong> ${factura.descripcion}</p>
             <div class="footer">
-                <p>Gracias por su compra</p>
+                <p>Gracias por su preferencia</p>
             </div>
         </body>
         </html>
@@ -88,4 +101,23 @@ function eliminarFactura(index) {
         localStorage.setItem("facturas", JSON.stringify(facturas));
         location.reload(); 
     }
+}
+
+function mostrarFormularioCuota(index) {
+    document.getElementById(`formCuota-${index}`).style.display = "block";
+}
+
+function actualizarCuota(index) {
+    const facturas = JSON.parse(localStorage.getItem("facturas")) || [];
+    const nuevaCuota = parseInt(document.getElementById(`nuevaCuota-${index}`).value);
+
+    if (isNaN(nuevaCuota) || nuevaCuota < 1 || nuevaCuota > facturas[index].cuotas) {
+        alert("Número de cuota inválido");
+        return;
+    }
+
+    facturas[index].cuotaActual = nuevaCuota;
+    localStorage.setItem("facturas", JSON.stringify(facturas));
+    alert("Cuota actualizada correctamente");
+    location.reload();
 }

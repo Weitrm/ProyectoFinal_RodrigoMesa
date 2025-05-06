@@ -29,16 +29,13 @@ body {
         background-color: #007BFF;
         border-radius: 5px;
     }
-    img {
-        width: 25%;
-    }
 }
 
 .imgLogo{
     max-width: 100%;
     height: auto;
     margin-left: 1rem;
-    width: 25%;
+    width: 20%;
 }
 
 legend {

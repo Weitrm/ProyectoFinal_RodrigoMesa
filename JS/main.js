@@ -12,7 +12,18 @@ document.addEventListener("DOMContentLoaded", () => {
         mostrarFactura(factura)
 
     })
+
+    tipoPagoSelect.addEventListener("change", (e) => {
+        const cuotasDiv = document.getElementById("cuotasContainer")
+        if (tipoPagoSelect.value === "cuota") {
+            cuotasDiv.style.display = "block"
+        } else {
+            cuotasDiv.style.display = "none"
+        }
+    })
 })    
+
+
 
 function crearFacturaDesdeFormulario() {
     const  numeroFactura = document.getElementById("numeroFactura").value
@@ -50,7 +61,11 @@ function crearFacturaDesdeFormulario() {
 
     let total = servicios.reduce((sum, s) => sum + s.precio, 0)
 
+
+    let ivaCalculado = 0
+
     if (incluyeIva) {
+        ivaCalculado = total * 0.22
         total *= 1.22 
     }
 
@@ -66,33 +81,32 @@ function crearFacturaDesdeFormulario() {
         descripcion,
         servicios,
         total: total.toFixed(2),
-        cuotasPagadas: 1 
+        iva: ivaCalculado.toFixed(2),
     }
 }
 
 // Guardar la factura
 function guardarFactura(factura) {
     const facturasGuardadas = JSON.parse(localStorage.getItem("facturas")) || []
-    facturasGuardadas.push(factura)
+    facturasGuardadas.unshift(factura)
     localStorage.setItem("facturas", JSON.stringify(facturasGuardadas))
 }
 
 // Muestra la factura creada en uan nueva ventana
 function mostrarFactura(factura) {
+    const totalPorCuota = (parseFloat(factura.total) / factura.cuotas).toFixed(2);
     const facturaHTML = `
         <html>
         <head>
             <title>Factura ${factura.numeroFactura}</title>
-            <style>
-                body { font-family: Arial; padding: 20px; }
-                h1 { text-align: center; }
-                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-                .footer { margin-top: 40px; text-align: center; }
-            </style>
+            <link rel="stylesheet" href="./CSS/facturas_styles.css">
         </head>
         <body>
-            <h1>Factura</h1>
+            <div class="header">
+                <img src="./img/jslogo.png" alt="Logo" class="logo">
+                <h1>Factura</h1>
+                <a href="./facturas.html">Volver al Historial</a>
+            </div>
             <p><strong>Número:</strong> ${factura.numeroFactura}</p>
             <p><strong>Cliente:</strong> ${factura.nombreCliente}</p>
             <p><strong>Teléfono:</strong> ${factura.numeroTelefono}</p>
@@ -104,8 +118,9 @@ function mostrarFactura(factura) {
                     ${factura.servicios.map(s => `<tr><td>${s.nombre}</td><td>${s.detalle}</td><td>$${s.precio.toFixed(2)}</td></tr>`).join("")}
                 </tbody>
             </table>
-            <p><strong>Total:</strong> $${factura.total}</p>
-            ${factura.tipoPago === "cuotas" ? `<p><strong>Cuotas:</strong> ${factura.cuotas} (Cuota 1/${factura.cuotas})</p>` : ""}
+            ${factura.cuotas > 1 ? `<p ><strong>Cuotas:</strong> ${factura.cuotas} de $${totalPorCuota}</p>` : ""}
+            ${factura.incluyeIva ? `<p><strong>IVA:</strong> $${factura.iva}</p>` : ""}
+            <p class="total"><strong>Total:</strong> $${factura.total}</p>
             <p><strong>Descripción:</strong> ${factura.descripcion}</p>
             <div class="footer">
                 <p>Gracias por su compra</p>

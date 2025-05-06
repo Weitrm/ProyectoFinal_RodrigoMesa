@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
 })    
 
 
-
 function crearFacturaDesdeFormulario() {
     const  numeroFactura = document.getElementById("numeroFactura").value
     const  nombreCliente = document.getElementById("nombreCliente").value
@@ -58,12 +57,8 @@ function crearFacturaDesdeFormulario() {
         }
     })
 
-
     let total = servicios.reduce((sum, s) => sum + s.precio, 0)
-
-
     let ivaCalculado = 0
-
     if (incluyeIva) {
         ivaCalculado = total * 0.22
         total *= 1.22 

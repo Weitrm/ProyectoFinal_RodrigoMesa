@@ -9,5 +9,5 @@ Permite: - Ingresar los datos del cliente
          - Visualizarla posteriormente en la pestaña "Ver facturas"
          - Eliminar las facturas
          - Buscar factura mediante el nombre del cliente
-         - ** Proximamente: poder aplicar el pago en cuotas y dividir el total por las mismas **
-         - ** Proximamente: modificar las cuotas, cada vez que el cliente haga un pago de la misma **
+         - Poder aplicar el pago en cuotas y dividir el total por las mismas
+         - Modificar las cuotas, cada vez que el cliente haga un pago de la misma 

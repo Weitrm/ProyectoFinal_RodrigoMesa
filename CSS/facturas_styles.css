@@ -5,17 +5,13 @@
     gap: 6rem;
     margin-bottom: 2rem;
 
-    img {
-        max-width: 100%;
-        height: auto;
-        width: 20%;
-    }
     h1 {
         font-size: 3rem;
         text-align: center;
     }
 
     a {
+        text-align: center;
         text-decoration: none;
         padding: 10px;
         font-size: 2rem;
@@ -23,6 +19,19 @@
         background-color: #007BFF;
         border-radius: 5px;
     }
+}
+
+.logo {  
+    max-width: 150px;
+    height: auto;
+    display: block;
+    margin-bottom: 1rem;
+}
+      
+
+
+.nro_factura {
+    color: #007BFF;
 }
 
 .total {

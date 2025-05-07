@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Facturas</title>
     <script defer src="./JS/main.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="./CSS/styles.css">
 </head>
 <body>
@@ -30,7 +31,7 @@
             <label for="incluyeRut">Incluir RUT:</label>
             <input type="checkbox" id="incluyeRut" name="incluyeRut">
             <label for="rut">RUT:</label>
-            <input type="text" id="rut" name="rut" value="110374690018" required>
+            <input type="text" id="rut" name="rut" value="" placeholder="Ingresar numero de RUT" required>
 
 
 
@@ -46,7 +47,7 @@
                 </div>
 
                 <div class="servicio">
-                    <input type="checkbox" id="instalacionEquipo" name="servicios" value="Instalacion de equipo">
+                    <input type="checkbox"  id="instalacionEquipo" name="servicios" value="Instalacion de equipo">
                     <label for="instalacionEquipo">Instalación de equipo</label>
                     <input type="text" placeholder="Especificar tamaño" name="instalacionDetail">
                     <input type="number" placeholder="Precio" name="instalacionPrice" step="0.01">

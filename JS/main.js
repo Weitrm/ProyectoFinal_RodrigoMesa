@@ -95,30 +95,32 @@ function mostrarFactura(factura) {
         <head>
             <title>Factura ${factura.numeroFactura}</title>
             <link rel="stylesheet" href="./CSS/facturas_styles.css">
+            <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
         </head>
         <body>
-            <div class="header">
-                <img src="./img/jslogo.png" alt="Logo" class="logo">
-                <h1>Factura</h1>
-                <a href="./facturas.html">Volver al Historial</a>
-            </div>
-            <p><strong>Número:</strong> ${factura.numeroFactura}</p>
-            <p><strong>Cliente:</strong> ${factura.nombreCliente}</p>
-            <p><strong>Teléfono:</strong> ${factura.numeroTelefono}</p>
-            <p><strong>Fecha:</strong> ${factura.fechaFactura}</p>
-            ${factura.rut ? `<p><strong>RUT:</strong> ${factura.rut}</p>` : ""}
-            <table>
-                <thead><tr><th>Servicio</th><th>Detalle</th><th>Precio</th></tr></thead>
-                <tbody>
-                    ${factura.servicios.map(s => `<tr><td>${s.nombre}</td><td>${s.detalle}</td><td>$${s.precio.toFixed(2)}</td></tr>`).join("")}
-                </tbody>
-            </table>
-            ${factura.cuotas > 1 ? `<p ><strong>Cuotas:</strong> ${factura.cuotas} de $${totalPorCuota}</p>` : ""}
-            ${factura.incluyeIva ? `<p><strong>IVA:</strong> $${factura.iva}</p>` : ""}
-            <p class="total"><strong>Total:</strong> $${factura.total}</p>
-            <p><strong>Descripción:</strong> ${factura.descripcion}</p>
-            <div class="footer">
-                <p>Gracias por su compra</p>
+            <div id="factura_container">
+                <div class="header">
+                    <img src="./img/jslogo.png" alt="Logo" class="logo">
+                    <h1>Factura Nro ${factura.numeroFactura}</h1>
+                </div>
+                <p><strong>Número:</strong> ${factura.numeroFactura}</p>
+                <p><strong>Cliente:</strong> ${factura.nombreCliente}</p>
+                <p><strong>Teléfono:</strong> ${factura.numeroTelefono}</p>
+                <p><strong>Fecha:</strong> ${factura.fechaFactura}</p>
+                ${factura.rut ? `<p><strong>RUT:</strong> ${factura.rut}</p>` : ""}
+                <table>
+                    <thead><tr><th>Servicio</th><th>Detalle</th><th>Precio</th></tr></thead>
+                    <tbody>
+                        ${factura.servicios.map(s => `<tr><td>${s.nombre}</td><td>${s.detalle}</td><td>$${s.precio.toFixed(2)}</td></tr>`).join("")}
+                    </tbody>
+                </table>
+                ${factura.cuotas > 1 ? `<p><strong>Cuotas:</strong> ${factura.cuotaActual || 1}/${factura.cuotas} (${factura.cuotas} de $${totalPorCuota})</p>` : ""}
+                ${factura.incluyeIva ? `<p><strong>IVA:</strong> $${factura.iva}</p>` : ""}
+                <p class="total"><strong>Total:</strong> $${factura.total}</p>
+                <p><strong>Descripción:</strong> ${factura.descripcion}</p>
+                <div class="footer">
+                    <p>Gracias por su compra</p>
+                </div>
             </div>
         </body>
         </html>
@@ -127,4 +129,22 @@ function mostrarFactura(factura) {
     const ventana = window.open("", "_blank");
     ventana.document.writeln(facturaHTML);
     ventana.document.close();
+    const scriptHtml2pdf = ventana.document.createElement('script');
+    scriptHtml2pdf.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+    ventana.document.head.appendChild(scriptHtml2pdf);
+    
+    scriptHtml2pdf.onload = () => {
+        setTimeout(() => {
+            const contenedor = ventana.document.getElementById('factura_container');
+            const opciones = {
+                margin: 0.5,
+                filename: `factura_${factura.numeroFactura}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            ventana.html2pdf().set(opciones).from(contenedor).save();
+        }, 100);
+    };
+
 }

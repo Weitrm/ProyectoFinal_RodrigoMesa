@@ -129,6 +129,8 @@ function mostrarFactura(factura) {
     const ventana = window.open("", "_blank");
     ventana.document.writeln(facturaHTML);
     ventana.document.close();
+
+    // Convertir a pdf
     const scriptHtml2pdf = ventana.document.createElement('script');
     scriptHtml2pdf.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
     ventana.document.head.appendChild(scriptHtml2pdf);

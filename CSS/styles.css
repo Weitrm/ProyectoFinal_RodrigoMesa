@@ -34,6 +34,7 @@ input[type=checkbox] {
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    margin-bottom: 2rem;
     a {
         text-decoration: none;
         padding: 4px;

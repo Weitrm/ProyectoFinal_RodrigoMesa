@@ -98,13 +98,31 @@ function mostrarFactura(factura) {
 }
 
 function eliminarFactura(index) {
-    if (confirm("¿Estás seguro de que querés eliminar esta factura?")) {
-        const facturas = JSON.parse(localStorage.getItem("facturas")) || [];
-        facturas.splice(index, 1);
-        localStorage.setItem("facturas", JSON.stringify(facturas));
-        location.reload(); 
-    }
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Esta acción eliminará la factura",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const facturas = JSON.parse(localStorage.getItem("facturas")) || [];
+            facturas.splice(index, 1);
+            localStorage.setItem("facturas", JSON.stringify(facturas));
+            Swal.fire(
+                '¡Eliminada!',
+                'La factura fue eliminada correctamente.',
+                'success'
+            ).then(() => {
+                location.reload();
+            });
+        }
+    });
 }
+
 
 function mostrarFormularioCuota(index) {
     document.getElementById(`formCuota-${index}`).style.display = "block";
@@ -125,6 +143,8 @@ function actualizarCuota(index) {
     location.reload();
 }
 
+
+// Descargar pdf de la factura
 function descargarFacturaPDF(index) {
     const facturas = JSON.parse(localStorage.getItem("facturas")) || [];
     const factura = facturas[index];
@@ -158,7 +178,6 @@ function descargarFacturaPDF(index) {
         </div>
     `;
 
-    // Asegurate de que html2pdf esté cargado
     const script = document.createElement("script");
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
     script.onload = () => {

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Facturas</title>
     <script defer src="./JS/main.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="./CSS/styles.css">
 </head>
@@ -32,7 +33,7 @@
             <label for="incluyeRut">Incluir RUT:</label>
             <input type="checkbox" id="incluyeRut" name="incluyeRut">
             <label for="rut">RUT:</label>
-            <input type="text" id="rut" name="rut" value="" placeholder="Ingresar numero de RUT" required>
+            <input type="text" id="rut" name="rut" value="" placeholder="Ingresar numero de RUT">
 
 
 
@@ -94,7 +95,7 @@
             <label for="incluyeIva">Incluir IVA (22%):</label>
             <input type="checkbox" id="incluyeIva" name="incluyeIva">
             
-            <div>
+            <div class="tipoPago_container">
                 <label for="tipoPago">Tipo de Pago:</label>
                 <select id="tipoPago" name="tipoPago" required>
                     <option value="contado">Contado</option>

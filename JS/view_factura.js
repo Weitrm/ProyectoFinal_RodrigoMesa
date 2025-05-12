@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const contenedor = document.getElementById("facturasContainer");
-    const inputBuscar = document.getElementById("buscadorCliente");
-    const facturas = JSON.parse(localStorage.getItem("facturas")) || [];
+    const contenedor = document.getElementById("facturasContainer")
+    const inputBuscar = document.getElementById("buscadorCliente")
+    const facturas = JSON.parse(localStorage.getItem("facturas")) || []
 
     function mostrarFacturas(filtradas) {
         contenedor.innerHTML = "";
     
         filtradas.forEach((factura, index) => {
-            const div = document.createElement("div");
+            const div = document.createElement("div")
             div.classList.add("factura-card");
     
             div.innerHTML = `
@@ -39,23 +39,23 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
     inputBuscar.addEventListener("input", () => {
-        const texto = inputBuscar.value.toLowerCase();
-        const filtradas = facturas.filter(f => f.nombreCliente.toLowerCase().includes(texto));
-        mostrarFacturas(filtradas);
+        const texto = inputBuscar.value.toLowerCase()
+        const filtradas = facturas.filter(f => f.nombreCliente.toLowerCase().includes(texto) || f.numeroTelefono.includes(texto) || f.fechaFactura.includes(texto))
+        mostrarFacturas(filtradas)
     });
 
     mostrarFacturas(facturas);
 });
 
 function verFactura(index) {
-    const facturas = JSON.parse(localStorage.getItem("facturas")) || [];
-    const factura = facturas[index];
-    mostrarFactura(factura);
+    const facturas = JSON.parse(localStorage.getItem("facturas")) || []
+    const factura = facturas[index]
+    mostrarFactura(factura)
 }
 
 
 function mostrarFactura(factura) {
-    const totalPorCuota = (parseFloat(factura.total) / factura.cuotas).toFixed(2);
+    const totalPorCuota = (parseFloat(factura.total) / factura.cuotas).toFixed(2)
     const facturaHTML = `
         <html>
         <head>
@@ -92,9 +92,9 @@ function mostrarFactura(factura) {
         </html>
     `;
 
-    const ventana = window.open("", "_blank");
-    ventana.document.writeln(facturaHTML);
-    ventana.document.close();
+    const ventana = window.open("", "_blank")
+    ventana.document.writeln(facturaHTML)
+    ventana.document.close()
 }
 
 function eliminarFactura(index) {
@@ -133,13 +133,13 @@ function actualizarCuota(index) {
     const nuevaCuota = parseInt(document.getElementById(`nuevaCuota-${index}`).value);
 
     if (isNaN(nuevaCuota) || nuevaCuota < 1 || nuevaCuota > facturas[index].cuotas) {
-        alert("Número de cuota inválido");
+        alert("Número de cuota inválido")
         return;
     }
 
     facturas[index].cuotaActual = nuevaCuota;
     localStorage.setItem("facturas", JSON.stringify(facturas));
-    alert("Cuota actualizada correctamente");
+    alert("Cuota actualizada correctamente")
     location.reload();
 }
 
@@ -147,10 +147,10 @@ function actualizarCuota(index) {
 // Descargar pdf de la factura
 function descargarFacturaPDF(index) {
     const facturas = JSON.parse(localStorage.getItem("facturas")) || [];
-    const factura = facturas[index];
-    const totalPorCuota = (parseFloat(factura.total) / factura.cuotas).toFixed(2);
+    const factura = facturas[index]
+    const totalPorCuota = (parseFloat(factura.total) / factura.cuotas).toFixed(2)
 
-    const container = document.createElement("div");
+    const container = document.createElement("div")
     container.innerHTML = `
         <div id="factura_container" style="font-family: Arial; padding: 20px;">
             <div class="header" style="text-align:center;">
@@ -178,7 +178,7 @@ function descargarFacturaPDF(index) {
         </div>
     `;
 
-    const script = document.createElement("script");
+    const script = document.createElement("script")
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
     script.onload = () => {
         const opciones = {
@@ -189,7 +189,7 @@ function descargarFacturaPDF(index) {
             jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
 
-        html2pdf().set(opciones).from(container).save();
+        html2pdf().set(opciones).from(container).save()
     };
-    document.body.appendChild(script);
+    document.body.appendChild(script)
 }

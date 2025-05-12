@@ -19,9 +19,11 @@ input[type=checkbox] {
         padding: 10px;
 }
 
+
 .invoice-form {
     max-width: 600px;
     margin: auto;
+    margin-bottom: 2rem;
     padding: 20px;
     padding-right: 40px;
     border: 1px solid #ccc;
@@ -136,5 +138,43 @@ form button:hover {
         color: white;
         background-color: #007BFF;
         border-radius: 5px;
+    }
+}
+
+
+.h2_buscar {
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+    margin-bottom: 4px;
+    color: #007BFF;
+    border-top: 1px solid #ccc;
+}
+
+.styles_titulo {
+    margin-bottom: 6px;
+}
+
+.barra_buscar {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 16px;
+    margin-bottom: 2rem;
+}
+.tipoPago_container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    text-align: center;
+    select {
+        font-size: 18px;
+        padding: 6px;
+        background-color: #007BFF;
     }
 }

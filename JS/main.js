@@ -126,18 +126,18 @@ function mostrarFactura(factura) {
         </html>
     `;
 
-    const ventana = window.open("", "_blank");
-    ventana.document.writeln(facturaHTML);
-    ventana.document.close();
+    const ventana = window.open("", "_blank")
+    ventana.document.writeln(facturaHTML)
+    ventana.document.close()
 
     // Convertir a pdf
     const scriptHtml2pdf = ventana.document.createElement('script');
     scriptHtml2pdf.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
-    ventana.document.head.appendChild(scriptHtml2pdf);
+    ventana.document.head.appendChild(scriptHtml2pdf)
     
     scriptHtml2pdf.onload = () => {
         setTimeout(() => {
-            const contenedor = ventana.document.getElementById('factura_container');
+            const contenedor = ventana.document.getElementById('factura_container')
             const opciones = {
                 margin: 0.5,
                 filename: `factura_${factura.numeroFactura}.pdf`,
@@ -145,8 +145,8 @@ function mostrarFactura(factura) {
                 html2canvas: { scale: 2 },
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
-            ventana.html2pdf().set(opciones).from(contenedor).save();
-        }, 100);
-    };
+            ventana.html2pdf().set(opciones).from(contenedor).save()
+        }, 100)
+    }
 
 }

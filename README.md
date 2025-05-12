@@ -1,4 +1,6 @@
 Aplicación web para generar facturas de un tecnico de aire acondicionado.
+La idea de este proyecto es que el usuario lo va a usar en mobile,
+por lo que el diseño esta hecho para eso.
 
 Permite: - Ingresar los datos del cliente
          - Incluir RUT

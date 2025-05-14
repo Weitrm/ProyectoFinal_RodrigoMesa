@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
         filtradas.forEach((factura, index) => {
             const div = document.createElement("div")
-            div.classList.add("factura-card");
+            div.classList.add("factura-card")
     
             div.innerHTML = `
                 <h3>Factura N° ${factura.numeroFactura}</h3>
@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 <hr>
             `;
     
-            contenedor.appendChild(div);
-        });
+            contenedor.appendChild(div)
+        })
     }
     
 
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mostrarFacturas(filtradas)
     });
 
-    mostrarFacturas(facturas);
+    mostrarFacturas(facturas)
 });
 
 function verFactura(index) {
@@ -110,37 +110,39 @@ function eliminarFactura(index) {
     }).then((result) => {
         if (result.isConfirmed) {
             const facturas = JSON.parse(localStorage.getItem("facturas")) || [];
-            facturas.splice(index, 1);
+            facturas.splice(index, 1)
             localStorage.setItem("facturas", JSON.stringify(facturas));
             Swal.fire(
                 '¡Eliminada!',
                 'La factura fue eliminada correctamente.',
                 'success'
             ).then(() => {
-                location.reload();
+                location.reload()
             });
         }
     });
 }
 
-
+// despliega el input de las cuotas 
 function mostrarFormularioCuota(index) {
     document.getElementById(`formCuota-${index}`).style.display = "block";
 }
 
+
+// actualizar las cuotas 
 function actualizarCuota(index) {
-    const facturas = JSON.parse(localStorage.getItem("facturas")) || [];
-    const nuevaCuota = parseInt(document.getElementById(`nuevaCuota-${index}`).value);
+    const facturas = JSON.parse(localStorage.getItem("facturas")) || []
+    const nuevaCuota = parseInt(document.getElementById(`nuevaCuota-${index}`).value)
 
     if (isNaN(nuevaCuota) || nuevaCuota < 1 || nuevaCuota > facturas[index].cuotas) {
-        alert("Número de cuota inválido")
-        return;
+        Swal.fire("Número de cuota inválido")
+        return
     }
 
     facturas[index].cuotaActual = nuevaCuota;
     localStorage.setItem("facturas", JSON.stringify(facturas));
-    alert("Cuota actualizada correctamente")
-    location.reload();
+    Swal.fire("Cuota actualizada correctamente")
+    location.reload()
 }
 
 

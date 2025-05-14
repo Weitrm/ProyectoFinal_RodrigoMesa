@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })    
 
-
+// Crea la factura con los campos que se llenen 
 function crearFacturaDesdeFormulario() {
     const  numeroFactura = document.getElementById("numeroFactura").value
     const  nombreCliente = document.getElementById("nombreCliente").value
@@ -36,7 +36,6 @@ function crearFacturaDesdeFormulario() {
     const cuotas = tipoPago === "cuota" ? parseInt(document.getElementById("cuotas").value) : 1
     const descripcion = document.getElementById("descripcion").value
 
-    // Servicios seleccionados 
 
     const servicios = [] 
 
@@ -80,7 +79,7 @@ function crearFacturaDesdeFormulario() {
     }
 }
 
-// Guardar la factura
+// Guarda la factura
 function guardarFactura(factura) {
     const facturasGuardadas = JSON.parse(localStorage.getItem("facturas")) || []
     facturasGuardadas.unshift(factura)
